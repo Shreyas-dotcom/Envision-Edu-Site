@@ -3,5 +3,5 @@
   { "from": "/faculty-advisors/", "to": "/about-4/#advisory", "title": "Advisory Board" },
   { "from": "/legacy/", "to": "/about-4/#legacy", "title": "Envision Legacy" },
   { "from": "/envision-leadership/", "to": "/about-4/#team", "title": "Our Team" },
-  { "from": "/plans-pricing/", "to": "/donate/", "title": "Donate" }
+  { "from": "/plans-pricing/", "to": "/donate/", "title": "Get Involved" }
 ]

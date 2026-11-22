@@ -25,7 +25,7 @@ The site rebuilds and goes live by itself about a minute later.
 | Address, email, social links, contact form | `src/_data/site.json` |
 | Old addresses that forward somewhere else | `src/_data/redirects.json` |
 | Home page text | `src/index.njk` |
-| Donation tiers and payment links | `src/donate.njk` |
+| Get Involved page | `src/donate.njk` |
 | Other pages | `src/our-mission.njk`, `src/about-4.njk` (Our People), `src/projects.njk`, … |
 
 ### Adding a trip
@@ -111,9 +111,8 @@ Namecheap first (Wix → Domains → Advanced → Transfer away from Wix) so it 
   `envisioneducation@concordiashanghai.org`. To receive messages without that step, create a free
   [Formspree](https://formspree.io) form and paste its URL into `contactFormEndpoint` in
   `src/_data/site.json`.
-- **Donations.** The donation tiers' "Give" buttons currently open an email. Wix took the payment
-  itself; to take card payments again, create a payment link for each tier (Stripe, PayPal, or the
-  school's giving page) and paste it into that tier's `paymentUrl` at the top of `src/donate.njk`.
+- **Donations.** The site doesn't take money. The Get Involved page (`/donate/`) asks people to
+  email the team, and you take it from there.
 - **Blog likes, comments and member profiles** aren't carried over; static sites don't have them.
 
 ## Media archive
