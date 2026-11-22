@@ -1,7 +1,7 @@
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div>
-      <a class="footer-title" href="/">ENVISION EDUCATION</a>
+      <a class="footer-logo" href="/" aria-label="Envision Education, home">{% include "partials/logo.svg" %}</a>
       <address>{% for line in site.address %}{{ line }}<br>{% endfor %}<a href="mailto:{{ site.email }}">{{ site.email }}</a></address>
       <p class="copyright">&copy;{{ "" | year }} Envision Education</p>
     </div>

@@ -7,6 +7,7 @@
   --blush: #e5abab;  /* soft backgrounds, accents on red */
   --stone: #e8e6e6;  /* neutral backgrounds, cards */
   --white: #fff;
+  --cream: #f5eadb;  /* logo lettering (from the Envision logo) */
   --muted: rgba(62, 12, 12, .72);
   --line: rgba(62, 12, 12, .14);
 
@@ -58,7 +59,9 @@ main :focus-visible { outline-color: var(--red); }
 /* ---------- Header ---------- */
 .site-header { position: sticky; top: 0; z-index: 50; background: var(--red); color: var(--white); height: var(--header-h); }
 .site-header__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 clamp(16px, 4vw, 60px) 0 clamp(16px, 5vw, 75px); }
-.wordmark { font-family: var(--f-display); font-weight: 500; font-size: clamp(30px, 2.6vw, 40px); letter-spacing: 2px; text-decoration: none; white-space: nowrap; line-height: 1; }
+.wordmark { display: block; color: var(--cream); line-height: 0; flex: none; }
+.wordmark .logo { height: 66px; width: auto; display: block; }
+.wordmark:hover { color: var(--white); }
 .site-nav > ul { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; }
 .site-nav > ul > li { position: relative; display: flex; align-items: center; }
 .site-nav > ul > li + li:not(.nav-donate) { border-left: 1px solid rgba(255,255,255,.55); }
@@ -82,7 +85,7 @@ main :focus-visible { outline-color: var(--red); }
 
 @media (max-width: 1060px) {
   :root { --header-h: 72px; }
-  .wordmark { font-size: 26px; }
+  .wordmark .logo { height: 46px; }
   .nav-toggle { display: block; }
   .site-nav { position: fixed; inset: var(--header-h) 0 0 0; background: var(--red); padding: 12px 24px 40px; overflow-y: auto; transform: translateX(100%); visibility: hidden; transition: transform .25s ease, visibility .25s; }
   .nav-open .site-nav { transform: none; visibility: visible; }
@@ -105,6 +108,8 @@ main :focus-visible { outline-color: var(--red); }
 .site-footer { background: var(--ink); color: var(--white); padding: 56px clamp(16px, 7vw, 104px) 48px; }
 .site-footer__inner { display: grid; grid-template-columns: 1fr 1fr auto; gap: 40px; max-width: 1320px; }
 .footer-title { display: block; font-family: var(--f-display); font-weight: 500; font-size: 34px; line-height: 1; margin: 0 0 28px; text-decoration: none; text-transform: uppercase; }
+.footer-logo { display: inline-block; color: var(--cream); line-height: 0; margin: 0 0 28px; }
+.footer-logo .logo { height: 92px; width: auto; display: block; }
 .site-footer address { font-style: normal; font-size: 16px; line-height: 1.5; margin-bottom: 22px; }
 .site-footer address a { display: inline-block; margin-top: 10px; text-underline-offset: 3px; }
 .copyright { font-size: 15px; color: rgba(255,255,255,.75); }
