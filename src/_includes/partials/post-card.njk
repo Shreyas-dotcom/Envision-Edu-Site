@@ -1,0 +1,8 @@
+<a class="post-card" href="{{ post.url }}">
+  <div class="post-card__img"><img src="{{ post.data.cover }}" alt="" loading="lazy"></div>
+  <div class="post-card__body">
+    <p class="meta"><span>{{ post.date | longDate }}</span><span>{{ post.data.readTime }} min read</span></p>
+    <h2>{{ post.data.title }}</h2>
+    <p>{{ post.data.excerpt }}</p>
+  </div>
+</a>

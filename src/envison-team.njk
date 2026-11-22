@@ -1,0 +1,11 @@
+---
+layout: base.njk
+title: Envison Team
+navSection: people
+permalink: /envison-team/
+---
+<section class="people">
+  <h1 class="page-title">Our Team</h1>
+  {% set people = team %}{% set cols = 2 %}
+  {% include "partials/people.njk" %}
+</section>

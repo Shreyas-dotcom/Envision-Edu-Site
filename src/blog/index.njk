@@ -1,0 +1,11 @@
+---
+layout: base.njk
+title: Blog
+navSection: blog
+permalink: /blog/
+---
+<section class="blog">
+  <h1 class="sr-only">Blog</h1>
+  {% include "partials/blog-cats.njk" %}
+  {% for post in collections.posts %}{% include "partials/post-card.njk" %}{% endfor %}
+</section>

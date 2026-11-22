@@ -1,0 +1,13 @@
+<section class="contact" id="contact">
+  <form class="contact__form" data-contact {% if site.contactFormEndpoint %}action="{{ site.contactFormEndpoint }}" method="POST"{% endif %} data-email="{{ site.email }}">
+    <h2 class="display">SEND US A MESSAGE</h2>
+    <div class="contact__row">
+      <label>First name<input type="text" name="name" placeholder="Enter your first name" autocomplete="given-name"></label>
+      <label>Email *<input type="email" name="email" placeholder="Enter your email" required autocomplete="email"></label>
+    </div>
+    <label>Subject<input type="text" name="subject" placeholder="e.g., Support"></label>
+    <label>Write a message<textarea name="message" rows="4" placeholder="Enter text here"></textarea></label>
+    <button class="btn-send" type="submit">SEND</button>
+    <p class="contact__status" role="status"></p>
+  </form>
+</section>

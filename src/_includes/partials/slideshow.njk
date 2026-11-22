@@ -1,0 +1,13 @@
+{# expects: slides (array of image ids), label #}
+<div class="slideshow" data-slideshow aria-roledescription="carousel" aria-label="{{ label }}">
+  <div class="slideshow__track">
+    {% for id in slides %}
+    <figure class="slideshow__slide{% if loop.first %} is-active{% endif %}" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ slides.length }}">
+      <img src="{{ id | img }}" {{ id | imgSize | safe }} alt="" {% if not loop.first %}loading="lazy"{% endif %}>
+    </figure>
+    {% endfor %}
+  </div>
+  <button class="slideshow__btn slideshow__btn--prev" aria-label="Previous photo"><svg viewBox="0 0 12 24"><path d="M11 1 1 12l10 11" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+  <button class="slideshow__btn slideshow__btn--next" aria-label="Next photo"><svg viewBox="0 0 12 24"><path d="m1 1 10 11L1 23" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+  <p class="slideshow__count" aria-live="polite"><span data-current>1</span>/{{ slides.length }}</p>
+</div>

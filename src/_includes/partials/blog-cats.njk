@@ -1,0 +1,4 @@
+<ul class="blog-cats">
+  <li><a href="/blog/" {% if page.url == "/blog/" %}aria-current="page"{% endif %}>All Posts</a></li>
+  {% for c in blogCategories %}<li><a href="/blog/categories/{{ c.slug }}/" {% if page.url == "/blog/categories/" + c.slug + "/" %}aria-current="page"{% endif %}>{{ c.name }}</a></li>{% endfor %}
+</ul>

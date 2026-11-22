@@ -1,0 +1,34 @@
+---
+layout: base.njk
+title: Donate
+navSection: none
+permalink: /donate/
+tiers:
+  - name: "Bronze Tier: Ignite Curiosity"
+    amount: 10
+    perks: ["Envision Education newsletter subscription", "Invitation to exclusive Donor Events"]
+  - name: "Silver Tier: Empower Potential"
+    amount: 50
+    perks: ["Recognition on Envision Education website", "Envision Education newsletter subscription", "Invitation to exclusive donor events"]
+  - name: "Gold Tier: Transform Futures"
+    amount: 500
+    perks: ["Recognition on Envision Education website", "Envision Education newsletter subscription", "Invitation to exclusive donor events", "Envision Education T-shirt"]
+---
+<section class="donate-hero">
+  <img src="{{ '11062b_560805ef563246db96e8ecec2d701f6f' | img }}" alt="">
+  <h1>Donate Today!</h1>
+  <p>Envision is built on the generosity of donors who believe in empowering our youth through access to technology and educational opportunities. They represent hope, access, and a first step out of poverty through education and skills. Though you may never meet the child who receives your donated tech, know that you are empowering the next generation of leaders and innovators. You are giving the gift of possibility to someone who never had a chance. Donate your technology today and kindle a spark of joy, wonder, and opportunity in a young life. Together, we can empower the leaders of tomorrow, one laptop and one child at a time. Your small act of kindness can change the world for another. Donate today and bridge the digital divide!</p>
+</section>
+<section class="tiers">
+  <h2>Select Donation Amount</h2>
+  <div class="tiers__grid">
+    {% for t in tiers %}
+    <article class="tier">
+      <h3>{{ t.name }}</h3>
+      <p class="price"><small>HK$</small>{{ t.amount }}</p>
+      <a class="btn" href="mailto:{{ site.email }}?subject={{ ('Donation – ' + t.name) | urlencode }}">Buy Now</a>
+      <ul>{% for perk in t.perks %}<li>{{ perk }}</li>{% endfor %}</ul>
+    </article>
+    {% endfor %}
+  </div>
+</section>

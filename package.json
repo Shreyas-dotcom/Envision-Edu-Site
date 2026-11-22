@@ -1,0 +1,13 @@
+{
+  "name": "envision-education-site",
+  "private": true,
+  "type": "module",
+  "description": "Envision Education website (envision-education.org), built with Eleventy and hosted on GitHub Pages.",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  }
+}

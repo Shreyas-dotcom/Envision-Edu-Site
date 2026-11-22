@@ -1,0 +1,28 @@
+---
+layout: base.njk
+---
+<div class="post">
+  {% include "partials/blog-cats.njk" %}
+  <article class="post__article">
+    <p class="meta"><span class="avatar" aria-hidden="true">{{ author | first }}</span><span>{{ author }}</span><span>{{ page.date | longDate }}</span><span>{{ readTime }} min read</span></p>
+    <h1>{{ title }}</h1>
+    {% if updated and updated != (page.date | isoDate) %}<p class="post__updated">Updated: {{ updated | longDate }}</p>{% endif %}
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+    {% if categories.length %}
+    <ul class="post__cats">
+      {% for c in categories %}<li><a href="/blog/categories/{{ c | slug }}/">{{ c }}</a></li>{% endfor %}
+    </ul>
+    {% endif %}
+  </article>
+  {% set recent = collections.posts | exclude(page.url) %}
+  <section class="recent">
+    <h2>Recent Posts <a href="/blog/">See All</a></h2>
+    <div class="recent__grid">
+      {% for p in recent | head(3) %}
+      <a href="{{ p.url }}"><img src="{{ p.data.cover }}" alt="" loading="lazy"><h3>{{ p.data.title }}</h3></a>
+      {% endfor %}
+    </div>
+  </section>
+</div>

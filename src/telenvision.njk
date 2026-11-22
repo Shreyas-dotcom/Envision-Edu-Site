@@ -1,0 +1,21 @@
+---
+layout: base.njk
+title: TelEnvision
+navSection: telenvision
+permalink: /telenvision/
+---
+<section class="tel" data-tel>
+  <h1>TelEnvision</h1>
+  <div class="tel__player">
+    <p>All Videos</p>
+    {% set video = videos[0] %}
+    {% include "partials/youtube.njk" %}
+    <ul class="tel__list">
+      {% for v in videos %}
+      <li><button data-video="{{ v.id }}" {% if loop.first %}aria-current="true"{% endif %} aria-label="Play {{ v.title }}">
+        <img src="https://i.ytimg.com/vi/{{ v.id }}/mqdefault.jpg" alt="" loading="lazy"><span>{{ v.title }}</span>
+      </button></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>

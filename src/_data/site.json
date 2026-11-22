@@ -1,0 +1,15 @@
+{
+  "name": "Envision Education",
+  "tagline": "Bridging the Digital Divide",
+  "description": "Envision Education is an initiative launched by high school students in 2022 to bring digital learning to locations with insufficient technology resources for students.",
+  "url": "https://www.envision-education.org",
+  "email": "envisioneducation@concordiashanghai.org",
+  "address": ["999 MingYue Rd", "JingQiao, Shanghai", "China", "2012006"],
+  "socials": {
+    "email": "mailto:envisioneducation@concordiashanghai.org?subject=Inquiry%20",
+    "youtube": "https://youtube.com/playlist?list=PLSf7U7sIgpbgAgCwK0P2GDbyBQlCKC0uP&si=F2cVRrUhXurTO8lG",
+    "linkedin": "https://www.linkedin.com/company/envisionedu/",
+    "instagram": "https://www.instagram.com/envision_education_/"
+  },
+  "contactFormEndpoint": ""
+}

@@ -1,0 +1,19 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <a class="footer-title" href="/">ENVISION EDUCATION</a>
+      <address>{% for line in site.address %}{{ line }}<br>{% endfor %}</address>
+      <p class="copyright">&copy;{{ "" | year }} Envision Education</p>
+    </div>
+    <div>
+      <p class="footer-title">MENU</p>
+      <ul class="footer-menu">
+        {% for item in nav %}<li><a href="{{ item.url }}" {% if navSection == item.key %}aria-current="page"{% endif %}>{{ item.label }}</a></li>{% endfor %}
+      </ul>
+    </div>
+    <div>
+      <p class="footer-title">SOCIALS</p>
+      {% include "partials/socials.njk" %}
+    </div>
+  </div>
+</footer>

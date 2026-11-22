@@ -1,0 +1,17 @@
+[
+  { "label": "Home", "url": "/", "key": "home" },
+  { "label": "Our Mission", "url": "/our-mission/", "key": "mission" },
+  { "label": "Our People", "url": "/about-4/", "key": "people", "children": [
+    { "label": "Envison Team", "url": "/envison-team/" },
+    { "label": "Advisory Board", "url": "/faculty-advisors/" },
+    { "label": "Envision Legacy", "url": "/legacy/" }
+  ]},
+  { "label": "Projects", "url": "/projects/", "key": "projects", "children": [
+    { "label": "ZhaoQing2023", "url": "/post/zhaoqing-2023-envision-s-first-bridge/" },
+    { "label": "Nepal 2024", "url": "/post/bridging-the-digital-divide-envision-education-and-vishal-group-foundation-s-mission-to-bring-tech/" },
+    { "label": "Nepal 2025", "url": "/post/two-years-twice-the-impact-envision-education-vishal-group-foundation-bridging-the-digital-divid/" }
+  ]},
+  { "label": "TelEnvision", "url": "/telenvision/", "key": "telenvision" },
+  { "label": "Gallery", "url": "/gallery/", "key": "gallery" },
+  { "label": "Blog", "url": "/blog/", "key": "blog" }
+]

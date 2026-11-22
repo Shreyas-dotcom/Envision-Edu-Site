@@ -1,0 +1,21 @@
+---
+layout: base.njk
+title: Gallery
+navSection: gallery
+permalink: /gallery/
+instagramPosts:
+  - DH8xrhQPfQI
+  - DWnaVTJD2uG
+  - DWsfL_HD08G
+---
+<section class="gallery">
+  <h1>Gallery</h1>
+  <div class="gallery__grid">
+    {% for id in instagramPosts %}
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/{{ id }}/" data-instgrm-version="14">
+      <a class="gallery__fallback" href="https://www.instagram.com/p/{{ id }}/" rel="noopener">View this post on Instagram</a>
+    </blockquote>
+    {% endfor %}
+  </div>
+</section>
+<script async src="https://www.instagram.com/embed.js"></script>

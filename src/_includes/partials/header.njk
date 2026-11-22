@@ -1,0 +1,23 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="wordmark" href="/">ENVISION EDUCATION</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle__bars" aria-hidden="true"></span><span class="sr-only">Menu</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        {% for item in nav %}
+        <li class="{% if item.children %}has-sub{% endif %}">
+          <a href="{{ item.url }}" {% if navSection == item.key %}aria-current="page"{% endif %}>{{ item.label }}</a>
+          {% if item.children %}
+          <button class="sub-toggle" aria-expanded="false" aria-label="Show {{ item.label }} pages"></button>
+          <ul class="sub">
+            {% for c in item.children %}<li><a href="{{ c.url }}" {% if page.url == c.url %}aria-current="page"{% endif %}>{{ c.label }}</a></li>{% endfor %}
+          </ul>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

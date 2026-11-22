@@ -1,0 +1,16 @@
+---
+layout: base.njk
+navSection: blog
+pagination:
+  data: blogCategories
+  size: 1
+  alias: cat
+permalink: "/blog/categories/{{ cat.slug }}/"
+eleventyComputed:
+  title: "{{ cat.name }}"
+---
+<section class="blog">
+  <h1 class="sr-only">{{ cat.name }}</h1>
+  {% include "partials/blog-cats.njk" %}
+  {% for post in collections.posts | withCategory(cat.name) %}{% include "partials/post-card.njk" %}{% endfor %}
+</section>

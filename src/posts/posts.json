@@ -1,0 +1,5 @@
+{
+  "layout": "post.njk",
+  "permalink": "/post/{{ wixSlug }}/",
+  "navSection": "projects"
+}
