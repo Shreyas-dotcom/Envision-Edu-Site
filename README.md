@@ -14,6 +14,7 @@ The site rebuilds and goes live by itself about a minute later.
 
 | What you want to change | File |
 | --- | --- |
+| Trips: text, numbers, slideshow photos, film | `src/_data/trips.json` (feeds the home page timeline, Projects, each project page and the Gallery) |
 | Team members | `src/_data/team.json` |
 | Advisory board | `src/_data/advisory.json` |
 | Legacy / former members | `src/_data/legacy.json` |
@@ -21,17 +22,30 @@ The site rebuilds and goes live by itself about a minute later.
 | Partner logos | `src/_data/partners.json` |
 | TelEnvision videos | `src/_data/videos.json` (the YouTube video id is the part after `v=`) |
 | Menu | `src/_data/nav.json` |
-| Address, email, social links | `src/_data/site.json` |
-| Home page text and photo slideshows | `src/index.njk` |
-| Other pages | `src/our-mission.njk`, `src/about-4.njk`, `src/projects.njk`, `src/donate.njk`, … |
+| Address, email, social links, contact form | `src/_data/site.json` |
+| Old addresses that forward somewhere else | `src/_data/redirects.json` |
+| Home page text | `src/index.njk` |
+| Donation tiers and payment links | `src/donate.njk` |
+| Other pages | `src/our-mission.njk`, `src/about-4.njk` (Our People), `src/projects.njk`, … |
+
+### Adding a trip
+
+Add an entry to `src/_data/trips.json` (copy an existing one). It automatically gets a spot on the
+home page timeline, a card on Projects, its own page at `/projects/<slug>/`, and a Gallery section.
+Set `"category"` to the blog category its posts use, and add that category to
+`src/_data/blogCategories.json`, so the project page lists the trip's posts.
 
 ### Adding a photo
 
 1. Put the image in `src/assets/img/` (please resize it to about 2000px wide first: phone photos are huge).
 2. Reference it as `/assets/img/your-photo.jpg`.
 
+Anywhere a data file asks for an image (a team member's `image`, a trip's `slides`), you can use
+either a path like `/assets/img/your-photo.jpg` or the id of a photo that came over from Wix.
+
 Photos that came over from Wix live in `src/assets/img/wix/` and are referred to by their old Wix
-id, e.g. `{{ "1dfaf6_53881bbb8f3c40e9afc9b595befefd14" | img }}`.
+id, e.g. `{{ "1dfaf6_53881bbb8f3c40e9afc9b595befefd14" | img }}`. Small copies used in grids are in
+`src/assets/img/thumbs/`.
 
 ### Writing a blog post
 
@@ -42,7 +56,7 @@ Create a new file in `src/posts/`, e.g. `src/posts/meizhou-2026-day-1.md`:
 title: "Meizhou 2026: Day 1"
 date: "2026-04-01"
 author: "Your Name"
-categories: ["Nepal 2025"]
+categories: ["Meizhou 2026"]
 cover: "/assets/img/meizhou-day1-cover.jpg"
 excerpt: "One or two sentences shown on the blog page."
 readTime: 3
@@ -97,9 +111,9 @@ Namecheap first (Wix → Domains → Advanced → Transfer away from Wix) so it 
   `envisioneducation@concordiashanghai.org`. To receive messages without that step, create a free
   [Formspree](https://formspree.io) form and paste its URL into `contactFormEndpoint` in
   `src/_data/site.json`.
-- **Donations.** The donation tiers' "Buy Now" buttons currently open an email. Wix took the payment
-  itself; to take card payments again, create payment links (Stripe, PayPal, or the school's giving
-  page) and put them in `src/donate.njk`.
+- **Donations.** The donation tiers' "Give" buttons currently open an email. Wix took the payment
+  itself; to take card payments again, create a payment link for each tier (Stripe, PayPal, or the
+  school's giving page) and paste it into that tier's `paymentUrl` at the top of `src/donate.njk`.
 - **Blog likes, comments and member profiles** aren't carried over; static sites don't have them.
 
 ## Media archive

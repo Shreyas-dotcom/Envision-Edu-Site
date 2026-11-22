@@ -1,0 +1,4 @@
+{# expects: trip #}
+<dl class="trip-stats">
+  {% for s in trip.stats %}<div><dt>{{ s.label }}</dt><dd>{{ s.n }}</dd></div>{% endfor %}
+</dl>

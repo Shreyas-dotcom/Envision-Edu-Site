@@ -3,7 +3,7 @@ title: "Expanding Horizons in Meizhou: Envision Education’s Next Step in Digit
 date: "2026-04-02"
 updated: "2026-04-02"
 author: "Austin Tang"
-categories: []
+categories: ["Meizhou 2026"]
 cover: "/assets/img/wix/133d6d_ed18ebce860241c3a07b7e42db6ec7ab.jpg"
 excerpt: "Today was the day we had worked toward for so long. Following months of planning, fundraising, and travel, we were finally ready to set up our computer lab. After an hour on winding mountain roads, we arrived at a campus that felt open and expansive, with breezeways and classrooms arranged around a "
 readTime: 3

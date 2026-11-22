@@ -3,7 +3,7 @@ title: "From Zhaoqing to Meizhou: Envision Education Expands in Guangdong"
 date: "2026-04-02"
 updated: "2026-04-02"
 author: "Austin Tang"
-categories: []
+categories: ["Meizhou 2026"]
 cover: "/assets/img/wix/133d6d_083eab85ba4b49c9a8ab1e969e029f0b.jpg"
 excerpt: "For the past few months, the Envision team has been hard at work planning the next chapter of our journey. After the success of our expansions in Nepal, we set our sights on Guangdong province, a region home to rural communities where it’s common for schools to lack sufficient access to digital lear"
 readTime: 2

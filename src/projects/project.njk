@@ -1,0 +1,85 @@
+---
+layout: base.njk
+navSection: projects
+pagination:
+  data: trips
+  size: 1
+  alias: trip
+permalink: "/projects/{{ trip.slug }}/"
+eleventyComputed:
+  title: "{{ trip.name }}"
+  description: "{{ trip.projectText }}"
+---
+{% set posts = collections.posts | withCategory(trip.category) | reverse %}
+<section class="p-hero">
+  <img class="p-hero__bg" src="{{ trip.hero | img }}" alt="" fetchpriority="high">
+  <div class="p-hero__text">
+    <p class="eyebrow">{{ trip.place }} · {{ trip.year }}</p>
+    <h1 class="display">{{ trip.name | upper }}</h1>
+    {% if trip.schools.length %}<p class="p-hero__schools">{{ trip.schools | join(" · ") }}</p>{% endif %}
+  </div>
+</section>
+
+<section class="p-intro">
+  <div class="p-intro__text">
+    <p class="p-intro__lede">{{ trip.projectText }}</p>
+    <p>{{ trip.summary }}</p>
+  </div>
+  <aside class="p-intro__stats" aria-label="{{ trip.name }} in numbers">
+    {% include "partials/trip-stats.njk" %}
+  </aside>
+</section>
+
+<section class="p-photos" aria-label="Photos">
+  {% set slides = trip.slides %}{% set label = trip.name + " photos" %}
+  {% include "partials/slideshow.njk" %}
+  <p class="p-photos__more"><a class="text-link" href="/gallery/#{{ trip.slug }}">See every photo from {{ trip.name }}</a></p>
+</section>
+
+{% if trip.beforeAfter %}
+<section class="p-compare" aria-label="{{ trip.beforeAfter.caption }}">
+  <h2 class="section-title">Before &amp; after</h2>
+  <div class="compare">
+    <figure>
+      <img src="{{ trip.beforeAfter.before | img }}" {{ trip.beforeAfter.before | imgSize | safe }} alt="{{ trip.beforeAfter.beforeAlt }}" loading="lazy">
+      <figcaption>Before</figcaption>
+    </figure>
+    <figure>
+      <img src="{{ trip.beforeAfter.after | img }}" {{ trip.beforeAfter.after | imgSize | safe }} alt="{{ trip.beforeAfter.afterAlt }}" loading="lazy">
+      <figcaption>After</figcaption>
+    </figure>
+  </div>
+  <p class="compare__caption">{{ trip.beforeAfter.caption }}</p>
+</section>
+{% endif %}
+
+{% if trip.video %}
+<section class="p-film" id="film">
+  <h2 class="section-title">The film</h2>
+  {% set video = trip.video %}
+  {% include "partials/youtube.njk" %}
+</section>
+{% endif %}
+
+{% if posts.length %}
+<section class="p-posts">
+  <h2 class="section-title">From the blog</h2>
+  <div class="card-grid">
+    {% for p in posts %}
+    <a class="card" href="{{ p.url }}">
+      <img src="{{ p.data.cover }}" alt="" loading="lazy">
+      <div class="card__body">
+        <p class="meta"><span>{{ p.date | longDate }}</span><span>{{ p.data.readTime }} min read</span></p>
+        <h3>{{ p.data.title }}</h3>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<nav class="p-pager" aria-label="Other projects">
+  {% if pagination.href.previous %}<a href="{{ pagination.href.previous }}"><span>Earlier</span>{{ trips[pagination.pageNumber - 1].name }}</a>{% else %}<span></span>{% endif %}
+  <a class="p-pager__all" href="/projects/">All projects</a>
+  {% if pagination.href.next %}<a class="p-pager__next" href="{{ pagination.href.next }}"><span>Next</span>{{ trips[pagination.pageNumber + 1].name }}</a>{% else %}<span></span>{% endif %}
+</nav>

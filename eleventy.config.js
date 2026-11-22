@@ -13,10 +13,13 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy("src/CNAME");
+  eleventyConfig.addWatchTarget("src/_data/");
   eleventyConfig.ignores.add("src/assets/**");
 
   // {{ "1dfaf6_53881bbb8f3c40e9afc9b595befefd14" | img }} -> /assets/img/wix/<file>
+  // Anything starting with "/" is already a path (e.g. "/assets/img/new-photo.jpg") and is used as is.
   eleventyConfig.addFilter("img", (id) => {
+    if (String(id).startsWith("/")) return id;
     const key = String(id).split("~")[0].split(".")[0];
     const hit = manifest[key];
     if (!hit) throw new Error(`Unknown image id: ${id}`);
@@ -27,6 +30,29 @@ export default function (eleventyConfig) {
     const hit = manifest[String(id).split("~")[0].split(".")[0]];
     return hit ? `width="${hit.w}" height="${hit.h}"` : "";
   });
+
+  // Small copy for grids (720px, made from the web copy): /assets/img/thumbs/<id>.jpg
+  eleventyConfig.addFilter("thumb", (id) => {
+    if (String(id).startsWith("/")) return id;
+    const key = String(id).split("~")[0].split(".")[0];
+    if (!manifest[key]) throw new Error(`Unknown image id: ${id}`);
+    return `/assets/img/thumbs/${key}.jpg`;
+  });
+
+  // Every photo used in the given posts, in order of appearance.
+  eleventyConfig.addFilter("postImages", (posts) => {
+    const ids = [];
+    for (const p of posts) {
+      const raw = fs.readFileSync(p.inputPath, "utf8");
+      // Wix photos by id; photos added later by their path
+      for (const m of raw.matchAll(/\/assets\/img\/(?:wix\/([0-9a-z]+_[0-9a-f]{32})[^"')\s]*|(?!wix\/|thumbs\/)[^"')\s]+\.(?:jpe?g|png|webp|gif))/gi))
+        ids.push(m[1] || m[0]);
+    }
+    return ids;
+  });
+  eleventyConfig.addFilter("unique", (arr) => [...new Set(arr)]);
+  eleventyConfig.addFilter("withoutCategory", (posts) => posts.filter((p) => !(p.data.categories || []).length));
+  eleventyConfig.addFilter("bySlug", (arr, slug) => arr.find((x) => x.slug === slug));
 
   const fmt = (d, opts) => new Date(d).toLocaleDateString("en-US", { timeZone: "UTC", ...opts });
   eleventyConfig.addFilter("longDate", (d) => fmt(d, { month: "short", day: "numeric", year: "numeric" }));

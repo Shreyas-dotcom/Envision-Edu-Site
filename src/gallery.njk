@@ -3,19 +3,36 @@ layout: base.njk
 title: Gallery
 navSection: gallery
 permalink: /gallery/
-instagramPosts:
-  - DH8xrhQPfQI
-  - DWnaVTJD2uG
-  - DWsfL_HD08G
+description: Photos from Envision Education's trips to Guangdong and Nepal.
 ---
 <section class="gallery">
-  <h1>Gallery</h1>
-  <div class="gallery__grid">
-    {% for id in instagramPosts %}
-    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/{{ id }}/" data-instgrm-version="14">
-      <a class="gallery__fallback" href="https://www.instagram.com/p/{{ id }}/" rel="noopener">View this post on Instagram</a>
-    </blockquote>
-    {% endfor %}
-  </div>
+  <header class="gallery__head">
+    <h1 class="display">GALLERY</h1>
+    <nav class="gallery__jump" aria-label="Jump to a trip">
+      {% for trip in trips | reverse %}<a href="#{{ trip.slug }}">{{ trip.name }}</a>{% endfor %}
+      <a href="#fundraising">Fundraising &amp; shipping</a>
+    </nav>
+  </header>
+
+  {% for trip in trips | reverse %}
+  {% set ids = trip.slides %}
+  {% if trip.beforeAfter %}{% set ids = ids.concat([trip.beforeAfter.before, trip.beforeAfter.after]) %}{% endif %}
+  {% set ids = ids.concat(collections.posts | withCategory(trip.category) | reverse | postImages) | unique %}
+  <section class="gallery__group" id="{{ trip.slug }}" aria-labelledby="g-{{ trip.slug }}">
+    <h2 id="g-{{ trip.slug }}"><a href="/projects/{{ trip.slug }}/">{{ trip.name }}</a> <span>{{ trip.place }} · {{ ids.length }} photos</span></h2>
+    <ul class="gallery__grid" data-lightbox>
+      {% for id in ids %}<li><a href="{{ id | img }}"><img src="{{ id | thumb }}" alt="" loading="lazy"></a></li>{% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+
+  {% set ids = collections.posts | withoutCategory | reverse | postImages | unique %}
+  <section class="gallery__group" id="fundraising" aria-labelledby="g-fundraising">
+    <h2 id="g-fundraising">Fundraising &amp; shipping <span>{{ ids.length }} photos</span></h2>
+    <ul class="gallery__grid" data-lightbox>
+      {% for id in ids %}<li><a href="{{ id | img }}"><img src="{{ id | thumb }}" alt="" loading="lazy"></a></li>{% endfor %}
+    </ul>
+  </section>
+
+  <p class="gallery__insta">More on Instagram: <a href="{{ site.socials.instagram }}" rel="noopener">@envision_education_</a></p>
 </section>
-<script async src="https://www.instagram.com/embed.js"></script>

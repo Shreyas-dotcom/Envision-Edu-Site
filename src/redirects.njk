@@ -1,0 +1,17 @@
+---
+pagination:
+  data: redirects
+  size: 1
+  alias: r
+permalink: "{{ r.from }}"
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>{{ r.title }} | Envision Education</title>
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={{ r.to }}">
+<link rel="canonical" href="{{ site.url }}{{ r.to }}">
+<p>This page has moved. <a href="{{ r.to }}">Continue to {{ r.title }}</a>.</p>
+</html>

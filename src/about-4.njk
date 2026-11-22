@@ -1,18 +1,40 @@
 ---
 layout: base.njk
-title: About
+title: Our People
 navSection: people
 permalink: /about-4/
 ---
 <section class="about">
   <div class="about__hero">
     <img src="{{ '133d6d_460ac7e3cb6e43a6bd6e2d2e84b677ad' | img }}" alt="The Envision team at Chandi Devi School">
-    <h1>About</h1>
+    <h1 class="display">OUR PEOPLE</h1>
   </div>
-  <h2>Powered by People</h2>
-  <div class="serif">
+  <h2 class="section-title">Powered by People</h2>
+  <div class="about__text">
     <p>The Envision team is a passionate group of students and mentors working together to bridge the digital divide. Founded in 2022 by high school students Shreyas and Rulin of the Class of 2025, Envision began with a simple but powerful idea: to expand access to digital learning for students in underserved communities.</p>
     <p>Since then, the team has grown into a close-knit group united by a shared mission. Each member brings their own strengths, whether in leadership, organization, teaching, or technical skills, but what truly defines us is our commitment to working together toward a common goal. From fundraising and planning to traveling and setting up computer labs, every step of our journey is built on collaboration and trust.</p>
     <p>Beyond the work itself, Envision is a community. We support one another, learn from each experience, and share a collective drive to make a lasting impact. Together, we aim not only to provide technology, but to open doors for students around the world to explore, learn, and shape their own futures.</p>
   </div>
+  <nav class="people-jump" aria-label="Sections on this page">
+    <a href="#team">Our Team</a><a href="#advisory">Advisory Board</a><a href="#legacy">Envision Legacy</a>
+  </nav>
+</section>
+
+<section class="people" id="team" aria-labelledby="team-title">
+  <h2 class="section-title" id="team-title">Our Team</h2>
+  {% set people = team %}
+  {% include "partials/people.njk" %}
+</section>
+
+<section class="people people--tint" id="advisory" aria-labelledby="advisory-title">
+  <h2 class="section-title" id="advisory-title">Advisory Board</h2>
+  {% set people = advisory %}
+  {% include "partials/people.njk" %}
+</section>
+
+<section class="people" id="legacy" aria-labelledby="legacy-title">
+  <h2 class="section-title" id="legacy-title">Envision Legacy</h2>
+  <p class="lede">A life-long impact</p>
+  {% set people = legacy %}
+  {% include "partials/people.njk" %}
 </section>

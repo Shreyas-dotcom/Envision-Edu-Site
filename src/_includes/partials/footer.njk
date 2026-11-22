@@ -2,13 +2,15 @@
   <div class="site-footer__inner">
     <div>
       <a class="footer-title" href="/">ENVISION EDUCATION</a>
-      <address>{% for line in site.address %}{{ line }}<br>{% endfor %}</address>
+      <address>{% for line in site.address %}{{ line }}<br>{% endfor %}<a href="mailto:{{ site.email }}">{{ site.email }}</a></address>
       <p class="copyright">&copy;{{ "" | year }} Envision Education</p>
     </div>
     <div>
       <p class="footer-title">MENU</p>
       <ul class="footer-menu">
         {% for item in nav %}<li><a href="{{ item.url }}" {% if navSection == item.key %}aria-current="page"{% endif %}>{{ item.label }}</a></li>{% endfor %}
+        <li><a href="/telenvision/" {% if navSection == "telenvision" %}aria-current="page"{% endif %}>TelEnvision</a></li>
+        <li><a href="/donate/" {% if navSection == "donate" %}aria-current="page"{% endif %}>Donate</a></li>
       </ul>
     </div>
     <div>

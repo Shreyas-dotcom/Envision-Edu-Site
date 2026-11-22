@@ -3,33 +3,27 @@ layout: base.njk
 title: Projects
 navSection: projects
 permalink: /projects/
-projects:
-  - title: Zhaoqing 2023
-    image: 1dfaf6_80cabf9a2e1a460dbde911d1decd3d1c
-    text: "In 2023, we brought over 50 computers---as well as digital literacy, knowledge, and hope-- to TanBo Elementary School in Zhaoqing, Guangdong, China."
-    url: /post/zhaoqing-2023-envision-s-first-bridge/
-  - title: Nepal 2024
-    image: 1dfaf6_7f37c4bf24a04a31a20e211b0c051ae2
-    text: "In Kathmandu, Envision Education partnered with Vishal Group Foundation to transform two schools into fully equipped technology labs. From building digital literacy to sharing laughter across cultures, the trip empowered students with tools, training, and hope—one computer at a time."
-    url: /post/bridging-the-digital-divide-envision-education-and-vishal-group-foundation-s-mission-to-bring-tech/
-  - title: Nepal 2025
-    image: 133d6d_1ef08c8fd900423cb221844fb2624521
-    text: "In our boldest step yet, Envision Education returned to Nepal to establish digital labs at AUM and Chandi Devi Schools—bringing 50 new computers and sparking limitless curiosity. From lifting desks through windows to watching students research their dream careers, every moment was a reminder: we’re not just teaching tech—we’re building futures, one click at a time."
-    url: /post/two-years-twice-the-impact-envision-education-vishal-group-foundation-bridging-the-digital-divid/
 ---
 <section class="projects-hero">
-  <h1>Projects</h1>
+  <h1 class="display">PROJECTS</h1>
   <p>"Discover how Envision Education is bridging the digital divide—one school, one lab, one future at a time. Explore our past and ongoing impact across Nepal and China."</p>
 </section>
-{% for p in projects %}
-<section class="project{% if loop.index == 2 %} project--flip{% endif %}">
+{% for p in trips %}
+<section class="project{% if loop.index is even %} project--flip{% endif %}">
   <div class="project__inner">
-    <div class="project__media"><img src="{{ p.image | img }}" alt="{{ p.title }}" loading="lazy"></div>
+    <a class="project__media" href="/projects/{{ p.slug }}/" tabindex="-1" aria-hidden="true"><img src="{{ p.cover | img }}" alt="" loading="lazy"></a>
     <div class="project__card">
-      <h2>{{ p.title }}</h2>
-      <p>{{ p.text }}</p>
-      <a class="btn" href="{{ p.url }}">Read More</a>
+      <p class="eyebrow">{{ p.place }} · {{ p.year }}</p>
+      <h2 class="display">{{ p.name | upper }}</h2>
+      <p>{{ p.projectText }}</p>
+      {% set trip = p %}{% include "partials/trip-stats.njk" %}
+      <a class="btn" href="/projects/{{ p.slug }}/">See the project</a>
     </div>
   </div>
 </section>
 {% endfor %}
+<section class="projects-films">
+  <h2 class="display">TELENVISION</h2>
+  <p>Short films from our trips.</p>
+  <a class="btn" href="/telenvision/">Watch the films</a>
+</section>

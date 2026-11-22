@@ -1,11 +1,13 @@
-{# expects: people, cols (2|3) #}
-<div class="people__grid{% if cols == 3 %} people__grid--3{% endif %}">
+{# expects: people #}
+<div class="people__grid">
   {% for p in people %}
   <article class="person">
-    <img src="{{ p.image | img }}" alt="{{ p.name }}" loading="lazy">
-    <h3>{{ p.name }}</h3>
-    <p class="role">{{ p.role }}</p>
-    <p class="bio">{{ p.bio }}</p>
+    <img src="{{ p.image | thumb }}" alt="{{ p.name }}" loading="lazy">
+    <div class="person__body">
+      <h3>{{ p.name }}</h3>
+      <p class="role">{{ p.role }}</p>
+      <p class="bio">{{ p.bio }}</p>
+    </div>
   </article>
   {% endfor %}
 </div>

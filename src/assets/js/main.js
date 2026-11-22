@@ -8,6 +8,11 @@ navToggle?.addEventListener("click", () => {
   const open = document.body.classList.toggle("nav-open");
   navToggle.setAttribute("aria-expanded", String(open));
 });
+// close the menu after picking a link (matters for links to a section of the same page)
+document.querySelectorAll(".site-nav a").forEach((a) => a.addEventListener("click", () => {
+  document.body.classList.remove("nav-open");
+  navToggle?.setAttribute("aria-expanded", "false");
+}));
 document.querySelectorAll(".sub-toggle").forEach((btn) => {
   btn.addEventListener("click", () => {
     const sub = btn.nextElementSibling;
@@ -85,11 +90,6 @@ document.querySelectorAll("[data-tel]").forEach((tel) => {
   });
 });
 
-/* ---------- Before / after photos: tap to toggle on touch screens ---------- */
-document.querySelectorAll(".before-after").forEach((fig) => {
-  fig.addEventListener("click", () => fig.classList.toggle("is-after"));
-});
-
 /* ---------- Scroll effects ---------- */
 const io = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
   entries.forEach((e) => {
@@ -141,22 +141,61 @@ document.querySelectorAll("[data-contact]").forEach((form) => {
   });
 });
 
-/* ---------- Blog gallery lightbox ---------- */
-const galleryImgs = [...document.querySelectorAll(".post-gallery img, .prose > p > img")];
-if (galleryImgs.length) {
-  let lb, idx = 0;
-  const show = (n) => { idx = (n + galleryImgs.length) % galleryImgs.length; lb.querySelector("img").src = galleryImgs[idx].currentSrc || galleryImgs[idx].src; };
-  const close = () => { lb?.remove(); lb = null; document.removeEventListener("keydown", onKey); };
-  const onKey = (e) => { if (e.key === "Escape") close(); if (e.key === "ArrowRight") show(idx + 1); if (e.key === "ArrowLeft") show(idx - 1); };
-  galleryImgs.forEach((img, n) => img.addEventListener("click", () => {
-    lb = document.createElement("div");
-    lb.className = "lightbox"; lb.setAttribute("role", "dialog"); lb.setAttribute("aria-label", "Photo viewer");
-    lb.innerHTML = `<img alt=""><button class="lb-close" aria-label="Close">&times;</button><button class="lb-prev" aria-label="Previous">&#8249;</button><button class="lb-next" aria-label="Next">&#8250;</button>`;
-    lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
-    lb.querySelector(".lb-close").onclick = close;
-    lb.querySelector(".lb-prev").onclick = () => show(idx - 1);
-    lb.querySelector(".lb-next").onclick = () => show(idx + 1);
-    document.body.append(lb); document.addEventListener("keydown", onKey);
-    show(n); lb.querySelector(".lb-close").focus();
-  }));
+/* ---------- Lightbox ----------
+   Gallery groups ([data-lightbox], links to the full-size photo) and blog photos.
+   Arrows move within the same group. */
+const lightboxGroups = [...document.querySelectorAll("[data-lightbox]")].map((g) =>
+  [...g.querySelectorAll("a")].map((a) => ({ el: a, src: a.href })));
+const blogImgs = [...document.querySelectorAll(".post-gallery img, .prose > p > img")];
+if (blogImgs.length) lightboxGroups.push(blogImgs.map((img) => ({ el: img, src: img.currentSrc || img.src })));
+
+let lb = null, lbItems = [], lbIdx = 0, lbOpener = null;
+function lbShow(n) {
+  lbIdx = (n + lbItems.length) % lbItems.length;
+  lb.querySelector("img").src = lbItems[lbIdx].src;
+  lb.querySelector(".lb-count").textContent = `${lbIdx + 1} / ${lbItems.length}`;
+  const next = lbItems[(lbIdx + 1) % lbItems.length];
+  if (next) new Image().src = next.src;
 }
+function lbClose() {
+  lb?.remove(); lb = null;
+  document.removeEventListener("keydown", lbKey);
+  document.body.style.overflow = "";
+  lbOpener?.focus();
+}
+function lbKey(e) {
+  if (e.key === "Escape") lbClose();
+  if (e.key === "ArrowRight") lbShow(lbIdx + 1);
+  if (e.key === "ArrowLeft") lbShow(lbIdx - 1);
+}
+function lbOpen(items, n, opener) {
+  lbItems = items; lbOpener = opener;
+  lb = document.createElement("div");
+  lb.className = "lightbox"; lb.setAttribute("role", "dialog"); lb.setAttribute("aria-modal", "true"); lb.setAttribute("aria-label", "Photo viewer");
+  lb.innerHTML = `<img alt=""><button class="lb-close" aria-label="Close">&times;</button><button class="lb-prev" aria-label="Previous photo">&#8249;</button><button class="lb-next" aria-label="Next photo">&#8250;</button><p class="lb-count" aria-live="polite"></p>`;
+  lb.addEventListener("click", (e) => { if (e.target === lb) lbClose(); });
+  lb.querySelector(".lb-close").onclick = lbClose;
+  lb.querySelector(".lb-prev").onclick = () => lbShow(lbIdx - 1);
+  lb.querySelector(".lb-next").onclick = () => lbShow(lbIdx + 1);
+  let x0 = null;
+  lb.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) lbShow(dx < 0 ? lbIdx + 1 : lbIdx - 1);
+    x0 = null;
+  });
+  document.body.append(lb); document.body.style.overflow = "hidden";
+  document.addEventListener("keydown", lbKey);
+  lbShow(n); lb.querySelector(".lb-close").focus();
+}
+lightboxGroups.forEach((items) => items.forEach((item, n) => {
+  item.el.addEventListener("click", (e) => { e.preventDefault(); lbOpen(items, n, item.el); });
+}));
+
+/* ---------- Links to a section (#team, #film…): land on it once photos and fonts have loaded ---------- */
+window.addEventListener("load", () => {
+  const id = decodeURIComponent(location.hash.slice(1));
+  const target = id && document.getElementById(id);
+  if (target) target.scrollIntoView({ behavior: "instant", block: "start" });
+});
